@@ -80,7 +80,7 @@ var searchFunc = function(path, search_id, content_id) {
 										  $resultContent.innerHTML = str;
 										  })
 										  }
-										  }) }; var path = "../search.xml"; searchFunc(path, 'local-search-input', 'local-search-result');
+										  }) }; var path = "/search.xml"; searchFunc(path, 'local-search-input', 'local-search-result');
         window['LocalConst'] = {
           
 
