@@ -9,14 +9,15 @@ var searchFunc = function(path, search_id, content_id) {
 				return {
 					title: $( "title", this ).text(),
 					content: $("content",this).text(),
-					url: $( "url" , this).text()
+					url: $( "url" , this).text(),
+                    category: $( "category" , this).text()
 					};
 					}).get();
 					//ID选择器
 					var $input = document.getElementById(search_id);
 					var $resultContent = document.getElementById(content_id);
 					$input.addEventListener('input', function(){
-						var str='<ul class=\"search-result-list\">';
+						var str='<div class=\"grids-main py-5\"><div class=\"container py-lg-4\"><div class=\"w3l-populohny-grids\">';
 						var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
 						$resultContent.innerHTML = "";
 						if (this.value.trim().length <= 0) {
@@ -28,7 +29,9 @@ var searchFunc = function(path, search_id, content_id) {
 								var content_index = [];
 								var data_title = data.title.trim().toLowerCase();
 								var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                                
 								var data_url = data.url;
+                                var data_category = data.category;
 								var index_title = -1;
 								var index_content = -1;
 								var first_occur = -1;
@@ -52,17 +55,17 @@ var searchFunc = function(path, search_id, content_id) {
 								// 返回搜索结果
 								if (isMatch) {
 								//结果标签
-                      str += "<li><a href='"+ data_url +"' class='search-result-title' target='_blank'>"+ data_title +"</a>";
+                      str += " <div class='item vhny-grid'><div class='box16 mb-0'><a href='"+ data_url +"'  target='_blank'><figure><img class='img-fluid' src='"+ data_category +"'></figure><div class='box-content'><h3 class='title'>"+ data_title +" </h3>";
 					  var content = data.content.trim().replace(/<[^>]+>/g,"");
 					  if (first_occur >= 0) {
 						  // 拿出含有搜索字的部分
 						  var start = first_occur - 20;
-						  var end = first_occur + 30;
+						  var end = first_occur + 20;
 						  if(start < 0){
 							  start = 0;
 							  }
 							  if(start == 0){
-								  end = 15;
+								  end = 30;
 								  }
 								  if(end > content.length){
 									  end = content.length;
@@ -73,7 +76,7 @@ var searchFunc = function(path, search_id, content_id) {
 										  var regS = new RegExp(keyword, "gi");
 										  match_content = match_content.replace(regS, "<strong class=\"search-keyword\">"+keyword+"</strong>");
 										  })
-										  str += "<p class=\"search-result\">" + match_content +"...</p>"
+										  str += " </div></a></div></div>"
 										  }
 										  }
 										  })
@@ -81,49 +84,3 @@ var searchFunc = function(path, search_id, content_id) {
 										  })
 										  }
 										  }) }; var path = "/search.xml"; searchFunc(path, 'local-search-input', 'local-search-result');
-        window['LocalConst'] = {
-          
-
-        
-
-            //pjax
-            IS_PJAX: '1',
-            IS_PAJX_COMMENT: '1',
-            PJAX_ANIMATE: 'default',
-            PJAX_TO_TOP: '0',
-            TO_TOP_SPEED: '80',
-
-            PAGE_ANIMATE: '',
-            THEME_COLOR: '14',
-            THEME_COLOR_EDIT: 'white-white-white',
-            THEME_HEADER_FIX: '1',
-            THEME_ASIDE_FIX: '1',
-            THEME_ASIDE_FOLDED: '',
-            THEME_ASIDE_DOCK: '',
-            THEME_CONTAINER_BOX: '1',
-            THEME_HIGHLIGHT_CODE: '1',
-            THEME_MATHJAX: '',
-            THEME_TOC: '1',
-            THEME_DARK_MODE: 'auto',
-            THEME_DARK_MODE_VALUE: 'auto',
-            SHOW_SETTING_BUTTON: '1',
-
-            THEME_DARK_HOUR: '18',
-            THEME_LIGHT_HOUR: '6',
-            THUMB_STYLE: 'normal',
-            AUTO_READ_MODE: '',
-
-
-
-
-        };		
-    /*点击复制微信号*/
-function copywx(){
-const range = document.createRange();
-range.selectNode(document.getElementById('copy_content'));
-const selection = window.getSelection();
-if(selection.rangeCount > 0) selection.removeAllRanges();
-selection.addRange(range);
-document.execCommand('copy');
-alert("复制成功！");
-}		
